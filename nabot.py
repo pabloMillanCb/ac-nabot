@@ -6,13 +6,15 @@ import logging
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-import time, datetime
+import time, datetime, os
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
+
+TOKEN = client.run(os.environ['TOKEN'])
 
 
 # Define a few command handlers. These usually take the two arguments update and
