@@ -81,7 +81,7 @@ def compra(update, context):
         archivo.close()
         
         update.message.reply_text("Tu precio se subió correctamente.")
-        print(@update.message.from_user.name+' establecio un precio a '+str(new_price))
+        print(update.message.from_user.name+' establecio un precio a '+str(new_price))
 
     except(ValueError):
         update.message.reply_text("Algo ha ido mal.Revisa que has introducido un numero sin decimales y otros caracteres extraños.")
@@ -132,7 +132,7 @@ def venta(update, context):
         archivo.close()
         
         update.message.reply_text("Tu precio se subió correctamente.")
-        print(@update.message.from_user.name+' establecio un precio a '+str(new_price))
+        print(update.message.from_user.name+' establecio un precio a '+str(new_price))
     except(ValueError):
         update.message.reply_text("Algo ha ido mal.Revisa que has introducido un numero sin decimales y otros caracteres extraños.")
 
@@ -161,7 +161,7 @@ def precios(update, context):
                 output+=entrada[1+i+size]+str(int(entrada[1+i]))+' bayas\n\n'
 
             update.message.from_user.send_message(output)
-            print(@update.message.from_user.name+' consultó precio')
+            print(update.message.from_user.name+' consultó precio')
 
         else:
             update.message.reply_text("No hay precios subidos actualmente. Sube el tuyo con /venta [precio].")
@@ -240,7 +240,7 @@ def restart(update,context):
 
 def stonk(update, context):
     update.message.reply_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
-    print(@update.message.from_user.name+' stonked')
+    print(update.message.from_user.name+' stonked')
 
 
 def main():
