@@ -197,28 +197,29 @@ def fecha():
     ahora = time.time()
     archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
-    hora = datetime.datetime.now().hour + 1
     archivo.close()
+    hora = 1 + datetime.datetime.now().hour
+    print(entrada[1]+' '+str(hora))
     
     if (ahora-float(entrada[0]) > 86400):
         delete()
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
-    elif (hora < int(entrada[1])):
+    elif (datetime.datetime.now().hour < int(entrada[1])):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(hora))
+        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
         archivo.close()
-    elif (hora < 12 and int(entrada[1]) >= 12):
+    elif (datetime.datetime.now().hour < 12 and int(entrada[1]) >= 12):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(hora))
+        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
         archivo.close()
-    elif (hora >= 12 and int(entrada[1]) < 12):
+    elif (datetime.datetime.now().hour >= 12 and int(entrada[1]) < 12):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(hora))
+        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
         archivo.close()
 
 
@@ -243,7 +244,7 @@ def check_hour(update,context):
     if (update.message.from_user.username == 'PavroKatsu'):
         archivo = open('./data/date_manager', 'r')
         hora = archivo.readlines()
-        update.message.from_user.send_message(hora[1]+str(datetime.datetime.now().hour))
+        update.message.from_user.send_message(hora[1]+str())
 
 def stonk(update, context):
     update.message.reply_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
@@ -270,6 +271,7 @@ def main():
     dp.add_handler(CommandHandler("stonk", stonk))
     dp.add_handler(CommandHandler("stonks", stonk))
     dp.add_handler(CommandHandler("check", check_hour))
+    dp.add_handler(CommandHandler("fecha", fecha))
 
     # log all errors
     dp.add_error_handler(error)
