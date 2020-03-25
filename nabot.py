@@ -234,7 +234,7 @@ def restart(update,context):
         update.message.reply_text("Permiso denegado.")
 
 def stonk(update, context):
-    update.message.reply_photo('./media/stonk')
+    bot.sendPhoto(context,'https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
 
 
 def main():
