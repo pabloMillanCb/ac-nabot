@@ -197,27 +197,28 @@ def fecha():
     ahora = time.time()
     archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
+    hora = datetime.datetime.now().hour + 1
     archivo.close()
     
     if (ahora-float(entrada[0]) > 86400):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
+        archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
-    elif (datetime.datetime.now().hour < int(entrada[1])):
+    elif (hora < int(entrada[1])):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
+        archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
-    elif (datetime.datetime.now().hour < 12 and int(entrada[1]) >= 12):
+    elif (hora < 12 and int(entrada[1]) >= 12):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
+        archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
-    elif (datetime.datetime.now().hour >= 12 and int(entrada[1]) < 12):
+    elif (hora >= 12 and int(entrada[1]) < 12):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
+        archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
 
 
