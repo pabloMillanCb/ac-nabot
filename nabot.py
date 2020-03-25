@@ -24,7 +24,7 @@ def start(update, context):
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    archivo = open('help', 'r')
+    archivo = open('./data/help', 'r')
     output = archivo.readlines()
     out =''
     for i in output:
@@ -39,7 +39,7 @@ def error(update, context):
 def compra(update, context):
     try:
         fecha()
-        archivo = open('compra', 'r')
+        archivo = open('./data/compra', 'r')
         precios = []
         usuarios = []
         user = update.message.from_user.name
@@ -76,7 +76,7 @@ def compra(update, context):
             output+=usuarios[i]
 
 
-        archivo = open('compra', 'w')
+        archivo = open('./data/compra', 'w')
         archivo.write(output)
         archivo.close()
         
@@ -89,7 +89,7 @@ def compra(update, context):
 def venta(update, context):
     try:
         fecha()
-        archivo = open('venta', 'r')
+        archivo = open('./data/venta', 'r')
         precios = []
         usuarios = []
         user = update.message.from_user.name
@@ -126,7 +126,7 @@ def venta(update, context):
             output+=usuarios[i]
 
 
-        archivo = open('venta', 'w')
+        archivo = open('./data/venta', 'w')
         archivo.write(output)
         archivo.close()
         
@@ -137,9 +137,9 @@ def venta(update, context):
 def precios(update, context):
     try:
         fecha()
-        modo = 'venta'
+        modo = './data/venta'
         if (datetime.datetime.now().weekday() == 6):
-            modo = 'compra'
+            modo = './data/compra'
         archivo = open(modo, 'r')
         precios = []
         usuarios = []
@@ -191,37 +191,37 @@ def ordenar_compra(v, user, *arg):
 
 def fecha():
     ahora = time.time()
-    archivo = open('date_manager', 'r')
+    archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
     archivo.close()
     
     if (ahora-float(entrada[0]) > 86400):
         delete()
-        archivo = open('date_manager', 'w')
+        archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
         archivo.close()
     elif (datetime.datetime.now().hour < int(entrada[1])):
         delete()
-        archivo = open('date_manager', 'w')
+        archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
         archivo.close()
     elif (datetime.datetime.now().hour < 12 and int(entrada[1]) >= 12):
         delete()
-        archivo = open('date_manager', 'w')
+        archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
         archivo.close()
     elif (datetime.datetime.now().hour >= 12 and int(entrada[1]) < 12):
         delete()
-        archivo = open('date_manager', 'w')
+        archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
         archivo.close()
 
 
 def delete():
-    archivo = open('venta', 'w')
+    archivo = open('./data/venta', 'w')
     archivo.write("0")
     archivo.close()
-    archivo = open('compra', 'w')
+    archivo = open('./data/compra', 'w')
     archivo.write("0")
     archivo.close()
 
