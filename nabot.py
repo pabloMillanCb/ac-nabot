@@ -242,7 +242,7 @@ def check_hour(update,context):
     if (update.message.from_user.username == 'PavroKatsu'):
         archivo = open('./data/date_manager', 'r')
         hora = archivo.readlines()
-        update.message.from_user.send_message(hora[1])
+        update.message.from_user.send_message(hora[1]+str(datetime.datetime.now().hour))
 
 def stonk(update, context):
     update.message.reply_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
