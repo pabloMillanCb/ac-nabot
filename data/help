@@ -1,16 +1,24 @@
 Este bot tiene el proposito de agilizar el proceso de compra/venta de nabos y asi asegurarse que todos se lleven sus buenos stonks.
+PARA EL CORRECTO FUNCIONAMIENTO DEL BOT ES NECESARIO QUE LO INICIES.
+Para ello abre una conversación con @ac_bot y automaticamente te validará.
 
 
 Los comandos se ejecutan escribiendo:
 
       /[comando] (argumento)
 
+(no pongas ni los corchetes ni los paréntesis)
+
 
 Comandos:
 
-/ venta [precio]: Sube tu precio de venta.
-/ compra [precio]: Sube tu precio de compra.
-/ precios: Muestra la tabla de usuarios con sus respectivos precios. Los domingos mostrara el precio de compra de nabos. El resto de dias muestra el de venta.
-/ help: Muestra los comandos disponibles.
+/venta (precio): Sube tu precio de venta.
+/compra (precio): Sube tu precio de compra.
+/precios: Muestra la tabla de usuarios con sus respectivos precios. Los domingos mostrara el precio de compra de nabos. El resto de dias muestra el de venta.
+/help: Muestra los comandos disponibles.
+/stonk: Stonks.
+
+
+Las tablas de precios se reinician todos los días a las 12am/12pm.
 
 Si tienes dudas o quieres reportar un bug contacta con @PavroKatsu 

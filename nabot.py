@@ -81,6 +81,7 @@ def compra(update, context):
         archivo.close()
         
         update.message.reply_text("Tu precio se subió correctamente.")
+        print(@update.message.from_user.name+' establecio un precio a '+str(new_price))
 
     except(ValueError):
         update.message.reply_text("Algo ha ido mal.Revisa que has introducido un numero sin decimales y otros caracteres extraños.")
@@ -131,20 +132,22 @@ def venta(update, context):
         archivo.close()
         
         update.message.reply_text("Tu precio se subió correctamente.")
+        print(@update.message.from_user.name+' establecio un precio a '+str(new_price))
     except(ValueError):
         update.message.reply_text("Algo ha ido mal.Revisa que has introducido un numero sin decimales y otros caracteres extraños.")
 
 def precios(update, context):
     try:
         fecha()
-        modo = './data/venta'
+        modo = 'venta'
         if (datetime.datetime.now().weekday() == 6):
-            modo = './data/compra'
-        archivo = open(modo, 'r')
+            modo = 'compra'
+        archivo = open('./data/'+modo, 'r')
         precios = []
         usuarios = []
         n = 0
         entrada = archivo.readlines()
+        archivo.close()
         size = int(entrada[0])
         output = 'Los precios de '+modo+' son:\n\n'
         if (size > 0):
@@ -152,12 +155,13 @@ def precios(update, context):
                 precios.append(int(entrada[n+1]))
                 usuarios.append(entrada[size+n+1])
                 n+=1
-            archivo.close()
+            
 
             for i in range(size):
                 output+=entrada[1+i+size]+str(int(entrada[1+i]))+' bayas\n\n'
 
             update.message.from_user.send_message(output)
+            print(@update.message.from_user.name+' consultó precio')
 
         else:
             update.message.reply_text("No hay precios subidos actualmente. Sube el tuyo con /venta [precio].")
@@ -230,11 +234,13 @@ def restart(update,context):
     if (update.message.from_user.username == 'PavroKatsu'):
         delete()
         update.message.from_user.send_message("Archivos restablecidos.")
+        print('Archivos restablecidos')
     else:
         update.message.reply_text("Permiso denegado.")
 
 def stonk(update, context):
-    update.message.from_user.send_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
+    update.message.reply_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
+    print(@update.message.from_user.name+' stonked')
 
 
 def main():
@@ -252,8 +258,10 @@ def main():
     dp.add_handler(CommandHandler("venta", venta))
     dp.add_handler(CommandHandler("compra", compra))
     dp.add_handler(CommandHandler("precios", precios))
+    dp.add_handler(CommandHandler("precio", precios))
     dp.add_handler(CommandHandler("restart", restart))
     dp.add_handler(CommandHandler("stonk", stonk))
+    dp.add_handler(CommandHandler("stonks", stonk))
 
     # log all errors
     dp.add_error_handler(error)
