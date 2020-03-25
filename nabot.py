@@ -238,6 +238,12 @@ def restart(update,context):
     else:
         update.message.reply_text("Permiso denegado.")
 
+def check_hour(update,context):
+    if (update.message.from_user.username == 'PavroKatsu'):
+        archivo = open('./data/date_manager', 'r')
+        hora = archivo.readlines()
+        update.message.from_user.send_message(hora[1])
+
 def stonk(update, context):
     update.message.reply_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
     print(update.message.from_user.name+' stonked')
@@ -262,6 +268,7 @@ def main():
     dp.add_handler(CommandHandler("restart", restart))
     dp.add_handler(CommandHandler("stonk", stonk))
     dp.add_handler(CommandHandler("stonks", stonk))
+    dp.add_handler(CommandHandler("check", check_hour))
 
     # log all errors
     dp.add_error_handler(error)
