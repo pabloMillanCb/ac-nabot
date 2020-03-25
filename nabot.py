@@ -233,6 +233,9 @@ def restart(update,context):
     else:
         update.message.reply_text("Permiso denegado.")
 
+def stonk(update, context):
+    update.message.reply_photo('./media/stonk')
+
 
 def main():
     """Start the bot."""
@@ -250,6 +253,7 @@ def main():
     dp.add_handler(CommandHandler("compra", compra))
     dp.add_handler(CommandHandler("precios", precios))
     dp.add_handler(CommandHandler("restart", restart))
+    dp.add_handler(CommandHandler("stonk", stonk))
 
     # log all errors
     dp.add_error_handler(error)
