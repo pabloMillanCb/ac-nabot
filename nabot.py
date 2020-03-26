@@ -222,6 +222,20 @@ def fecha():
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
 
+def welcome(update, context):
+    
+    usuarios = update.message.new_chat_members
+    archivo =open('./data/welcome','r')
+    entrada = archivo.readlines()
+    archivo.close()
+    for i in usuarios:
+
+        update.message.chat.send_message("!Bienvenido! "+i.name)
+        print(i.name+" ha entrado al servidor")
+
+    update.message.chat.send_message(entrada[0]+'\n'+entrada[1])
+    
+
 
 def delete():
     archivo = open('./data/venta', 'w')
@@ -260,7 +274,10 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
+
+    #updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
+    updater = Updater('1047782199:AAEv-q8YW5WlJhrIdrWXSbJAOgz-fblez9s', use_context=True)
+    
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -276,6 +293,8 @@ def main():
     dp.add_handler(CommandHandler("stonks", stonk))
     dp.add_handler(CommandHandler("check", check_hour))
     dp.add_handler(CommandHandler("fecha", fecha))
+
+    dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, welcome))
 
     # log all errors
     dp.add_error_handler(error)
