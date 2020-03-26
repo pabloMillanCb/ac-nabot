@@ -230,7 +230,7 @@ def welcome(update, context):
     archivo.close()
     for i in usuarios:
 
-        update.message.chat.send_message("!Bienvenido! "+i.name)
+        update.message.chat.send_message("!Bienvenid@! "+i.name)
         print(i.name+" ha entrado al servidor")
 
     update.message.chat.send_message(entrada[0]+'\n'+entrada[1])
@@ -275,8 +275,8 @@ def main():
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
 
-    #updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
-    updater = Updater('1047782199:AAEv-q8YW5WlJhrIdrWXSbJAOgz-fblez9s', use_context=True)
+    updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
+    
     
 
     # Get the dispatcher to register handlers
