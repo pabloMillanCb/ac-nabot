@@ -198,8 +198,6 @@ def fecha():
     archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
     archivo.close()
-    hora = 1 + datetime.datetime.now().hour
-    print(entrada[1]+' '+str(hora))
     
     if (ahora-float(entrada[0]) > 86400):
         delete()
@@ -243,8 +241,11 @@ def restart(update,context):
 def check_hour(update,context):
     if (update.message.from_user.username == 'PavroKatsu'):
         archivo = open('./data/date_manager', 'r')
-        hora = archivo.readlines()
+        archivo = archivo.readlines()
+        hora = 1 + datetime.datetime.now().hour
         update.message.from_user.send_message(hora[1]+str())
+        print(entrada[1]+' '+str(hora))
+        archivo.close()
 
 def stonk(update, context):
     update.message.reply_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
