@@ -244,7 +244,8 @@ def check_hour(update,context):
         entrada = archivo.readlines()
         hora = 1 + datetime.datetime.now().hour
         update.message.from_user.send_message(entrada[1]+str())
-        print(entrada[1]+' '+str(hora))
+        print(entrada[1])
+        print(hora)
         archivo.close()
 
 def stonk(update, context):
