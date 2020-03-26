@@ -199,6 +199,8 @@ def fecha():
     entrada = archivo.readlines()
     archivo.close()
     hora = 1 + datetime.datetime.now().hour
+    if (hora == 24):
+      hora = 0
     
     if (ahora-float(entrada[0]) > 86400):
         delete()
