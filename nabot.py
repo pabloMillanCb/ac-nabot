@@ -204,20 +204,22 @@ def fecha():
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
+    hora = 1 + datetime.datetime.now().hour
+
     elif (datetime.datetime.now().hour < int(entrada[1])):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
+        archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
-    elif (datetime.datetime.now().hour < 12 and int(entrada[1]) >= 12):
+    elif (hora < 12 and int(entrada[1]) >= 12):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
+        archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
-    elif (datetime.datetime.now().hour >= 12 and int(entrada[1]) < 12):
+    elif (hora >= 12 and int(entrada[1]) < 12):
         delete()
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(datetime.datetime.now().hour))
+        archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
 
 
