@@ -198,15 +198,15 @@ def fecha():
     archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
     archivo.close()
+    hora = 1 + datetime.datetime.now().hour
     
     if (ahora-float(entrada[0]) > 86400):
         delete()
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
-    hora = 1 + datetime.datetime.now().hour
 
-    elif (datetime.datetime.now().hour < int(entrada[1])):
+    elif (hora < int(entrada[1])):
         delete()
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
@@ -245,7 +245,7 @@ def check_hour(update,context):
         archivo = open('./data/date_manager', 'r')
         entrada = archivo.readlines()
         hora = 1 + datetime.datetime.now().hour
-        update.message.from_user.send_message(entrada[1]+str())
+        update.message.from_user.send_message(entrada[1]+str(hora))
         print(entrada[1])
         print(hora)
         archivo.close()
