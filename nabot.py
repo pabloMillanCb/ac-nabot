@@ -143,6 +143,7 @@ def precios(update, context):
     try:
         fecha()
         modo = 'venta'
+        print (datetime.datetime.now().weekday())
         if (datetime.datetime.now().weekday() == 6):
             modo = 'compra'
         archivo = open('./data/'+modo, 'r')
