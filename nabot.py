@@ -168,7 +168,7 @@ def precios(update, context):
             print(update.message.from_user.name+' consultó precio')
 
         else:
-            update.message.reply_text("No hay precios subidos actualmente. Sube el tuyo con /venta [precio].")
+            update.message.reply_text("No hay precios subidos actualmente. Sube el tuyo con /"+modo+" [precio].")
         
     except(ValueError):
         update.message.reply_text("No puedo mandarte mensajes. Para ello hablame por privado y usa el comando /start")
