@@ -264,7 +264,7 @@ def check_hour(update,context):
     if (update.message.from_user.username == 'PavroKatsu'):
         archivo = open('./data/date_manager', 'r')
         entrada = archivo.readlines()
-        hora = 1 + datetime.datetime.now().hour
+        hora = 2 + datetime.datetime.now().hour
         update.message.from_user.send_message(entrada[1]+str(hora))
         print(entrada[1])
         print(hora)
