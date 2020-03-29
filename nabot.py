@@ -202,7 +202,7 @@ def fecha():
     archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
     archivo.close()
-    hora = 1 + datetime.datetime.now().hour
+    hora = 2 + datetime.datetime.now().hour
     if (hora == 24):
       hora = 0
     
