@@ -103,7 +103,8 @@ def venta(update, context):
         entrada = archivo.readlines()
         size = int(entrada[0])
         output = ''
-        new_max = new_price > int(entrada[1])
+        new_max = False
+        
         if (size > 0):
             while (n < size):
                 precios.append(int(entrada[n+1]))
@@ -119,6 +120,7 @@ def venta(update, context):
                 size+=1
             
             ordenar_venta(precios, usuarios)
+            new_max = new_price > int(entrada[1])
         else:
             precios.append(new_price)
             usuarios.append(user+'\n')
