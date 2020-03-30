@@ -142,7 +142,7 @@ def venta(update, context):
         update.message.reply_text("Tu precio se subió correctamente.")
 
         if (new_max):
-            context.bot.send_message(chat_id, 'STONK. ¡Nuevo máximo!\n\n'+user+' con '+new_price+' bayas')
+            context.bot.send_message(chat_id, 'STONK. ¡Nuevo máximo!\n\n'+user+' con '+str(new_price)+' bayas')
 
         print(update.message.from_user.name+' establecio un precio a '+str(new_price))
     except(ValueError):
