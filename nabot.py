@@ -16,7 +16,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-#chat_id = int(os.environ['CHAT_ID'])
+chat_id = int(os.environ['CHAT_ID'])
 
 
 # Define a few command handlers. These usually take the two arguments update and
@@ -147,8 +147,8 @@ def venta(update, context):
         
         update.message.reply_text("Tu precio se subió correctamente.")
 
-        #if (new_max):
-        #    context.bot.send_message(chat_id, 'STONK. ¡Nuevo máximo!\n\n'+user+' con '+str(new_price)+' bayas')
+        if (new_max):
+            context.bot.send_message(chat_id, 'STONK. ¡Nuevo máximo!\n\n'+user+' con '+str(new_price)+' bayas')
 
         print(update.message.from_user.name+' establecio un precio a '+str(new_price))
     except(ValueError):
@@ -302,8 +302,7 @@ def main():
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
 
-    #updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
-    updater = Updater('1047782199:AAEv-q8YW5WlJhrIdrWXSbJAOgz-fblez9s', use_context=True)
+    updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
     
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
