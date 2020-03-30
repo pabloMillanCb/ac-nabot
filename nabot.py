@@ -245,7 +245,7 @@ def welcome(update, context):
     archivo.close()
     for i in usuarios:
 
-        update.message.chat.send_message("!Bienvenid@! "+i.name)
+        update.message.chat.send_message("¡Bienvenid@! "+i.name)
         print(i.name+" ha entrado al servidor")
 
     update.message.chat.send_message(entrada[0]+'\n'+entrada[1])
