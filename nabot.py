@@ -293,7 +293,7 @@ def main():
     # Post version 12 this will no longer be necessary
 
     updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
-    chat_id = os.environ['CHAT_ID']
+    chat_id = int(os.environ['CHAT_ID'])
     
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
