@@ -103,6 +103,7 @@ def venta(update, context):
         entrada = archivo.readlines()
         size = int(entrada[0])
         output = ''
+        new_max = new_price > int(entrada[1])
         if (size > 0):
             while (n < size):
                 precios.append(int(entrada[n+1]))
@@ -135,6 +136,10 @@ def venta(update, context):
         archivo.close()
         
         update.message.reply_text("Tu precio se subió correctamente.")
+
+        if (new_max > int(entrada[1])):
+            context.bot.send_message(chat_id, 'STONK. ¡Nuevo máximo!\n\n'+user+' con '+new_price+' bayas')
+
         print(update.message.from_user.name+' establecio un precio a '+str(new_price))
     except(ValueError):
         update.message.reply_text("Algo ha ido mal.Revisa que has introducido un numero sin decimales y otros caracteres extraños.")
@@ -261,6 +266,7 @@ def restart(update,context):
         update.message.reply_text("Permiso denegado.")
 
 def check_hour(update,context):
+
     if (update.message.from_user.username == 'PavroKatsu'):
         archivo = open('./data/date_manager', 'r')
         entrada = archivo.readlines()
@@ -269,10 +275,13 @@ def check_hour(update,context):
         print(entrada[1])
         print(hora)
         archivo.close()
+        
+
 
 def stonk(update, context):
     update.message.reply_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
     print(update.message.from_user.name+' stonked')
+
 
 
 def main():
@@ -282,9 +291,8 @@ def main():
     # Post version 12 this will no longer be necessary
 
     updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
+    chat_id = os.environ['CHAT_ID']
     
-    
-
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
