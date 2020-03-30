@@ -16,16 +16,18 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-chat_id = int(os.environ['CHAT_ID'])
+#chat_id = int(os.environ['CHAT_ID'])
 
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
+
+
 def start(update, context):
     archivo = open('./data/empezar', 'r')
-    output = archivo.readlines()
+    output = archivo.readlines()[0]
     archivo.close()
-    update.message.from_user.send_message(output)
+    update.message.reply_text('¡'+output)
     print(update.message.from_user.name+' inició el bot ')
 
 
@@ -39,9 +41,11 @@ def help(update, context):
     update.message.reply_text(out)
     archivo.close()
 
+
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
+
 
 def compra(update, context):
     try:
@@ -143,12 +147,13 @@ def venta(update, context):
         
         update.message.reply_text("Tu precio se subió correctamente.")
 
-        if (new_max):
-            context.bot.send_message(chat_id, 'STONK. ¡Nuevo máximo!\n\n'+user+' con '+str(new_price)+' bayas')
+        #if (new_max):
+        #    context.bot.send_message(chat_id, 'STONK. ¡Nuevo máximo!\n\n'+user+' con '+str(new_price)+' bayas')
 
         print(update.message.from_user.name+' establecio un precio a '+str(new_price))
     except(ValueError):
         update.message.reply_text("Algo ha ido mal.Revisa que has introducido un numero sin decimales y otros caracteres extraños.")
+
 
 def precios(update, context):
     try:
@@ -164,6 +169,7 @@ def precios(update, context):
         entrada = archivo.readlines()
         archivo.close()
         size = int(entrada[0])
+
         output = 'Los precios de '+modo+' son:\n\n'
         if (size > 0):
             while (n < size):
@@ -184,6 +190,7 @@ def precios(update, context):
     except(ValueError):
         update.message.reply_text("No puedo mandarte mensajes. Para ello hablame por privado y usa el comando /start")
 
+
 def ordenar_venta(v, user, *arg):
     for i in range(len(v)-1):
         for j in range(len(v)-1):
@@ -195,7 +202,6 @@ def ordenar_venta(v, user, *arg):
                 temp = user[j+1]
                 user[j+1] = user[j]
                 user[j] = temp
-
 def ordenar_compra(v, user, *arg):
     for i in range(len(v)-1):
         for j in range(len(v)-1):
@@ -207,6 +213,7 @@ def ordenar_compra(v, user, *arg):
                 temp = user[j+1]
                 user[j+1] = user[j]
                 user[j] = temp
+
 
 def fecha():
     ahora = time.time()
@@ -239,6 +246,7 @@ def fecha():
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
 
+
 def welcome(update, context):
     
     usuarios = update.message.new_chat_members
@@ -252,7 +260,6 @@ def welcome(update, context):
 
     update.message.chat.send_message(entrada[0]+'\n'+entrada[1])
     
-
 
 def delete():
     archivo = open('./data/venta', 'w')
@@ -289,19 +296,20 @@ def stonk(update, context):
     print(update.message.from_user.name+' stonked')
 
 
-
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
 
-    updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
+    #updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
+    updater = Updater('1047782199:AAEv-q8YW5WlJhrIdrWXSbJAOgz-fblez9s', use_context=True)
     
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
+    dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("venta", venta))
     dp.add_handler(CommandHandler("compra", compra))
