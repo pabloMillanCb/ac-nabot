@@ -14,6 +14,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
+chat_id = int(os.environ['CHAT_ID'])
+
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
@@ -293,7 +295,6 @@ def main():
     # Post version 12 this will no longer be necessary
 
     updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
-    chat_id = int(os.environ['CHAT_ID'])
     
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
