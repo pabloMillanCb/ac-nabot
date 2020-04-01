@@ -113,44 +113,48 @@ def venta(update, context):
         output = ''
         new_max = False
         
-        if (size > 0):
-            while (n < size):
-                precios.append(int(entrada[n+1]))
-                usuarios.append(entrada[size+n+1])
-                n+=1
-            archivo.close()
+        if (new_price >= 100):
+            if (size > 0):
+                while (n < size):
+                    precios.append(int(entrada[n+1]))
+                    usuarios.append(entrada[size+n+1])
+                    n+=1
+                archivo.close()
 
-            if user+'\n' in usuarios:
-                precios[usuarios.index(user+'\n')] = new_price
+                if user+'\n' in usuarios:
+                    precios[usuarios.index(user+'\n')] = new_price
+                else:
+                    precios.append(new_price)
+                    usuarios.append(user+'\n')
+                    size+=1
+                
+                ordenar_venta(precios, usuarios)
+                new_max = new_price > int(entrada[1])
             else:
                 precios.append(new_price)
                 usuarios.append(user+'\n')
                 size+=1
+
+            output += str(size)+'\n'
+            for i in range(len(precios)):
+                output+=str(precios[i])+'\n'
+            for i in range(len(usuarios)):
+                output+=usuarios[i]
+
+
+            archivo = open('./data/venta', 'w')
+            archivo.write(output)
+            archivo.close()
             
-            ordenar_venta(precios, usuarios)
-            new_max = new_price > int(entrada[1])
+            update.message.reply_text("Tu precio se subió correctamente.")
+
+            if (new_max):
+                context.bot.send_message(chat_id, 'STONK. ¡Nuevo máximo!\n\n'+user+' con '+str(new_price)+' bayas')
+
+            print(update.message.from_user.name+' establecio un precio a '+str(new_price))
         else:
-            precios.append(new_price)
-            usuarios.append(user+'\n')
-            size+=1
-
-        output += str(size)+'\n'
-        for i in range(len(precios)):
-            output+=str(precios[i])+'\n'
-        for i in range(len(usuarios)):
-            output+=usuarios[i]
-
-
-        archivo = open('./data/venta', 'w')
-        archivo.write(output)
-        archivo.close()
+            update.message.reply_text("Los precios de venta menores a 100 bayas no se subirán.")
         
-        update.message.reply_text("Tu precio se subió correctamente.")
-
-        if (new_max):
-            context.bot.send_message(chat_id, 'STONK. ¡Nuevo máximo!\n\n'+user+' con '+str(new_price)+' bayas')
-
-        print(update.message.from_user.name+' establecio un precio a '+str(new_price))
     except(ValueError):
         update.message.reply_text("Algo ha ido mal.Revisa que has introducido un numero sin decimales y otros caracteres extraños.")
 
