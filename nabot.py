@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 # This program is dedicated to the public domain under the CC0 license.
 
-#esto es un pruba de push
-
 import logging
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
@@ -16,11 +14,10 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-chat_id = int(os.environ['CHAT_ID'])
+chat_id = int(os.environ['CHAT_ID']) #Está hecho para pillar el token de una variable que pasa heroku.
 
 
-# Define a few command handlers. These usually take the two arguments update and
-# context. Error handlers also receive the raised TelegramError object in error.
+##############-Comandos-####################
 
 
 def start(update, context):
@@ -195,10 +192,55 @@ def precios(update, context):
         update.message.reply_text("No puedo mandarte mensajes. Para ello hablame por privado y usa el comando /start")
 
 
-def ordenar_venta(v, user, *arg):
+def welcome(update, context):
+    
+    usuarios = update.message.new_chat_members
+    archivo =open('./data/welcome','r')
+    entrada = archivo.readlines()
+    archivo.close()
+    for i in usuarios:
+
+        update.message.chat.send_message("¡Bienvenid@! "+i.name)
+        print(i.name+" ha entrado al servidor")
+
+    update.message.chat.send_message(entrada[0]+'\n'+entrada[1])
+    
+
+def restart(update,context):
+    if (update.message.from_user.username == 'PavroKatsu'):
+        delete()
+        update.message.from_user.send_message("Archivos restablecidos.")
+        print('Archivos restablecidos')
+    else:
+        update.message.reply_text("Permiso denegado.")
+
+
+def check_hour(update,context):
+
+    if (update.message.from_user.username == 'PavroKatsu'):
+        archivo = open('./data/date_manager', 'r')
+        entrada = archivo.readlines()
+        hora = 2 + datetime.datetime.now().hour
+        update.message.from_user.send_message(entrada[1]+str(hora))
+        print(entrada[1])
+        print(hora)
+        archivo.close()
+        
+
+def stonk(update, context):
+    update.message.reply_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
+    print(update.message.from_user.name+' stonked')
+
+
+############################################
+
+###########-Funciones externas-#############
+
+
+def ordenar_compra(v, user, *arg):
     for i in range(len(v)-1):
         for j in range(len(v)-1):
-            if (v[j] < v[j+1]):
+            if (v[j] > v[j+1]):
                 temp = v[j+1]
                 v[j+1] = v[j]
                 v[j] = temp
@@ -206,10 +248,12 @@ def ordenar_venta(v, user, *arg):
                 temp = user[j+1]
                 user[j+1] = user[j]
                 user[j] = temp
-def ordenar_compra(v, user, *arg):
+
+
+def ordenar_venta(v, user, *arg):
     for i in range(len(v)-1):
         for j in range(len(v)-1):
-            if (v[j] > v[j+1]):
+            if (v[j] < v[j+1]):
                 temp = v[j+1]
                 v[j+1] = v[j]
                 v[j] = temp
@@ -251,20 +295,6 @@ def fecha():
         archivo.close()
 
 
-def welcome(update, context):
-    
-    usuarios = update.message.new_chat_members
-    archivo =open('./data/welcome','r')
-    entrada = archivo.readlines()
-    archivo.close()
-    for i in usuarios:
-
-        update.message.chat.send_message("¡Bienvenid@! "+i.name)
-        print(i.name+" ha entrado al servidor")
-
-    update.message.chat.send_message(entrada[0]+'\n'+entrada[1])
-    
-
 def delete():
     archivo = open('./data/venta', 'w')
     archivo.write("0")
@@ -274,37 +304,12 @@ def delete():
     archivo.close()
 
 
-def restart(update,context):
-    if (update.message.from_user.username == 'PavroKatsu'):
-        delete()
-        update.message.from_user.send_message("Archivos restablecidos.")
-        print('Archivos restablecidos')
-    else:
-        update.message.reply_text("Permiso denegado.")
+############################################
 
-def check_hour(update,context):
-
-    if (update.message.from_user.username == 'PavroKatsu'):
-        archivo = open('./data/date_manager', 'r')
-        entrada = archivo.readlines()
-        hora = 2 + datetime.datetime.now().hour
-        update.message.from_user.send_message(entrada[1]+str(hora))
-        print(entrada[1])
-        print(hora)
-        archivo.close()
-        
-
-
-def stonk(update, context):
-    update.message.reply_photo('https://pbs.twimg.com/media/ETyCZvJU8AAm8LN?format=jpg&name=900x900')
-    print(update.message.from_user.name+' stonked')
+################-main-######################
 
 
 def main():
-    """Start the bot."""
-    # Create the Updater and pass it your bot's token.
-    # Make sure to set use_context=True to use the new context based callbacks
-    # Post version 12 this will no longer be necessary
 
     updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True)
     
