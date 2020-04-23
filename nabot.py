@@ -14,7 +14,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-chat_id = int(os.environ['CHAT_ID']) #Está hecho para pillar el token de una variable que pasa heroku.
+chat_id = int(os.environ['CHAT_ID'])
+admin_id = int(os.environ['ADMIN_CHAT'])
 
 
 ##############-Comandos-####################
@@ -46,7 +47,7 @@ def error(update, context):
 
 def compra(update, context):
     try:
-        fecha()
+        fecha(context)
         archivo = open('./data/compra', 'r')
         precios = []
         usuarios = []
@@ -97,7 +98,7 @@ def compra(update, context):
 
 def venta(update, context):
     try:
-        fecha()
+        fecha(context)
         archivo = open('./data/venta', 'r')
         precios = []
         usuarios = []
@@ -153,12 +154,12 @@ def venta(update, context):
             update.message.reply_text("Los precios de venta menores a 100 bayas no se subirán.")
         
     except(ValueError):
-        update.message.reply_text("Algo ha ido mal.Revisa que has introducido un numero sin decimales y otros caracteres extraños.")
+        update.message.reply_text("Algo ha ido mal. Revisa que has introducido un numero sin decimales y otros caracteres extraños.")
 
 
 def precios(update, context):
     try:
-        fecha()
+        fecha(context)
         modo = 'venta'
         print (datetime.datetime.now().weekday())
         if (datetime.datetime.now().weekday() == 6):
@@ -263,7 +264,7 @@ def ordenar_venta(v, user, *arg):
                 user[j] = temp
 
 
-def fecha():
+def fecha(context):
     ahora = time.time()
     archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
@@ -274,22 +275,26 @@ def fecha():
     
     if (ahora-float(entrada[0]) > 86400):
         delete()
+        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
 
     elif (hora < int(entrada[1])):
         delete()
+        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
     elif (hora < 12 and int(entrada[1]) >= 12):
         delete()
+        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
     elif (hora >= 12 and int(entrada[1]) < 12):
         delete()
+        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
@@ -302,6 +307,7 @@ def delete():
     archivo = open('./data/compra', 'w')
     archivo.write("0")
     archivo.close()
+
 
 
 ############################################
