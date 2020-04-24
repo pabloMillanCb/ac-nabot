@@ -275,26 +275,25 @@ def fecha(context):
     
     if (ahora-float(entrada[0]) > 86400):
         delete()
-        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista con hora "+entrada[1])
+        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista caso 1 con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
-
     elif (hora < int(entrada[1])):
         delete()
-        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista con hora "+entrada[1])
+        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista, caso 2 con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
     elif (hora < 12 and int(entrada[1]) >= 12):
         delete()
-        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista con hora "+entrada[1])
+        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista caso 3 con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
     elif (hora >= 12 and int(entrada[1]) < 12):
         delete()
-        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista con hora "+entrada[1])
+        context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista caso 4 con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
         archivo.write(str(ahora)+'\n'+str(hora))
         archivo.close()
