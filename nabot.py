@@ -265,7 +265,7 @@ def ordenar_venta(v, user, *arg):
 
 
 def fecha(context):
-    hoy = datetime.datetime.now().day + datetime.datetime.now().weekday()
+    hoy = int(datetime.datetime.now().day) + int(datetime.datetime.now().weekday())
     archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
     archivo.close()
