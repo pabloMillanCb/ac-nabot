@@ -265,7 +265,7 @@ def ordenar_venta(v, user, *arg):
 
 
 def fecha(context):
-    ahora = time.time()
+    hoy = datetime.datetime.now().day + datetime.datetime.now().weekday()
     archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
     archivo.close()
@@ -273,29 +273,29 @@ def fecha(context):
     if (hora == 24):
       hora = 0
     
-    if (ahora-float(entrada[0]) > 86400):
+    if (int(entrada[0]) != hoy):
         delete()
         context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista caso 1 con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(hora))
+        archivo.write(str(hoy)+'\n'+str(hora))
         archivo.close()
     elif (hora < int(entrada[1])):
         delete()
         context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista, caso 2 con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(hora))
+        archivo.write(str(hoy)+'\n'+str(hora))
         archivo.close()
     elif (hora < 12 and int(entrada[1]) >= 12):
         delete()
         context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista caso 3 con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(hora))
+        archivo.write(str(hoy)+'\n'+str(hora))
         archivo.close()
     elif (hora >= 12 and int(entrada[1]) < 12):
         delete()
         context.bot.send_message(admin_id, "Son las "+str(hora)+" y se borra la lista caso 4 con hora "+entrada[1])
         archivo = open('./data/date_manager', 'w')
-        archivo.write(str(ahora)+'\n'+str(hora))
+        archivo.write(str(hoy)+'\n'+str(hora))
         archivo.close()
 
 
