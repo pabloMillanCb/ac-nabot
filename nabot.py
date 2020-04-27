@@ -98,7 +98,7 @@ def compra(update, context):
 
 def venta(update, context):
     try:
-        fecha(context)
+        #fecha(context)
         archivo = open('./data/venta', 'r')
         precios = []
         usuarios = []
