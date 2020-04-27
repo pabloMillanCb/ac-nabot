@@ -98,7 +98,7 @@ def compra(update, context):
 
 def venta(update, context):
     try:
-        #fecha(context)
+        fecha(context)
         archivo = open('./data/venta', 'r')
         precios = []
         usuarios = []
@@ -265,7 +265,7 @@ def ordenar_venta(v, user, *arg):
 
 
 def fecha(context):
-    hoy = int(datetime.datetime.now().day) + int(datetime.datetime.now().weekday())
+    hoy = int(datetime.datetime.now().day) * int(datetime.datetime.now().weekday())
     archivo = open('./data/date_manager', 'r')
     entrada = archivo.readlines()
     archivo.close()
